@@ -1,38 +1,27 @@
-const div = document.querySelector('div');
+const div = document.querySelector("div");
 let divX = 150;
 let divY = 50;
-div.style.left = divX + "px";
+
+div.style.left = `${divX}px`;
 div.style.top = `${divY}px`;
 
-let drawActive = false;
+let isActive = false; //flag
 
-let insertDivX;
-let insertDivY;
+div.addEventListener("mousemove", (e) => {
+  if (isActive) {
+    divX = e.clientX;
+    divY = e.clientY;
+    div.style.left = `${divX - 100}px`;
+    div.style.top = `${divY - 100}px`;
+  }
+});
 
-div.addEventListener('mousedown', (e) => {
- div.style.backgroundColor = "gray";
- drawActive = !drawActive;
- // drawActive = true;
+div.addEventListener("mousedown", () => {
+  isActive = !isActive;
+  div.style.backgroundColor = "gray";
+});
 
- insertDivX = e.offsetX;
- insertDivY = e.offsetY;
- console.log(insertDivX, insertDivY);
-
-})
-
-div.addEventListener('mousemove', (e) => {
- if (drawActive) {
-
-
-  divX = e.clientX - insertDivX;
-  divY = e.clientY - insertDivY;
-  div.style.left = `${divX}px`;
-  div.style.top = `${divY}px`;
- }
-})
-
-div.addEventListener('mouseup', () => {
- div.style.backgroundColor = "black";
- drawActive = !drawActive;
- // drawActive = false;
-})
+div.addEventListener("mouseup", () => {
+  isActive = !isActive;
+  div.style.backgroundColor = "black";
+});
