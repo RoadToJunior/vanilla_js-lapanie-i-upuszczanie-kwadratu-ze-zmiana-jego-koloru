@@ -2,6 +2,9 @@ const div = document.querySelector("div");
 let divX = 150;
 let divY = 50;
 
+let insertDivX;
+let insertDivY;
+
 div.style.left = `${divX}px`;
 div.style.top = `${divY}px`;
 
@@ -9,15 +12,17 @@ let isActive = false; //flag
 
 div.addEventListener("mousemove", (e) => {
   if (isActive) {
-    divX = e.clientX;
-    divY = e.clientY;
-    div.style.left = `${divX - 100}px`;
-    div.style.top = `${divY - 100}px`;
+    divX = e.clientX - insertDivX;
+    divY = e.clientY - insertDivY;
+    div.style.left = `${divX}px`;
+    div.style.top = `${divY}px`;
   }
 });
 
-div.addEventListener("mousedown", () => {
+div.addEventListener("mousedown", (e) => {
   isActive = !isActive;
+  insertDivX = e.offsetX;
+  insertDivY = e.offsetY;
   div.style.backgroundColor = "gray";
 });
 
